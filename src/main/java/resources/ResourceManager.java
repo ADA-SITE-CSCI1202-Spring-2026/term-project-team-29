@@ -1,18 +1,24 @@
 package resources;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ResourceManager {
-	private HashMap<Resource, Integer> inventory;  //private so gui can never directly change this
+	private HashMap<Resource, Integer> inventory; // private so gui can never directly change this
 	private int credits;
 
 	public ResourceManager() {
 		inventory = new HashMap<>();
 		// setup the starting values
+		// ALL TEMP VALUES , SUBJECT TO CHANGE
 		inventory.put(Resource.OXYGEN, 100);
+		inventory.put(Resource.SPACE_SUITS, 10);
 		inventory.put(Resource.SPARE_PARTS, 20);
-		inventory.put(Resource.RATIONS, 40);
+		inventory.put(Resource.CREW_MEMBERS, 20);
+		inventory.put(Resource.LAB_EQUIPMENTS, 5);
+		inventory.put(Resource.POWER_UNITS, 10);
 		credits = 1000;
+		// ALL TEMP VALUES, SUBJECT TO CHANGE
 	}
 
 	public int getAmount(Resource r) {
@@ -37,6 +43,19 @@ public class ResourceManager {
 
 	public void deductCredits(int amount) {
 		credits -= amount;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	public void setResource(Resource resource, int amount) {
+		inventory.put(resource, amount);
+	}
+
+	public void setInventory(Map<Resource, Integer> loadedInventory) {
+		inventory.clear();
+		inventory.putAll(loadedInventory);
 	}
 
 	public HashMap<Resource, Integer> getInventory() {
