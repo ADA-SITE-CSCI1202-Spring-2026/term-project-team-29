@@ -25,12 +25,20 @@ public class ResourceManager {
 		return inventory.getOrDefault(r, 0);
 	}
 
+	public void restock(Resource r, int amount) {
+		inventory.put(r, getAmount(r) + amount);
+	}
+
 	public boolean hasEnough(Resource r, int amount) {
 		return getAmount(r) >= amount;
 	}
 
 	public void deduct(Resource r, int amount) {
 		inventory.put(r, getAmount(r) - amount);
+	}
+
+	public void setResource(Resource resource, int amount) {
+		inventory.put(resource, amount);
 	}
 
 	public int getCredits() {
@@ -47,10 +55,6 @@ public class ResourceManager {
 
 	public void setCredits(int credits) {
 		this.credits = credits;
-	}
-
-	public void setResource(Resource resource, int amount) {
-		inventory.put(resource, amount);
 	}
 
 	public void setInventory(Map<Resource, Integer> loadedInventory) {
