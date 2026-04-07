@@ -1,6 +1,7 @@
 package resources;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ResourceManager {
 	private HashMap<Resource, Integer> inventory; // private so gui can never directly change this
@@ -42,6 +43,19 @@ public class ResourceManager {
 
 	public void deductCredits(int amount) {
 		credits -= amount;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	public void setResource(Resource resource, int amount) {
+		inventory.put(resource, amount);
+	}
+
+	public void setInventory(Map<Resource, Integer> loadedInventory) {
+		inventory.clear();
+		inventory.putAll(loadedInventory);
 	}
 
 	public HashMap<Resource, Integer> getInventory() {
