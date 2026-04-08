@@ -38,20 +38,7 @@ public class SaveLoadManager {
 			bw.newLine();
 		}
 	}
-
-	private String serializeTask(ColonyTask task) {
-		String base = "TASK:" + task.getTaskType() + ":" + task.getName() + ":r_parts:" + task.getRequiredParts()
-				+ ":time:" + task.getTimeToFix() + ":r_crew:" + task.getCrewMembersRequired();
-		if (task instanceof LifeSupportTask lst) {
-			return base + ":r_oxygen:" + lst.getOxygenRequired() + ":r_suits:" + lst.getSpaceSuits();
-		} else if (task instanceof EngineeringTask et) {
-			return base + ":r_powerunits:" + et.getPowerUnitsRequired();
-		} else if (task instanceof ResearchTask rt) {
-			return base + ":r_lab:" + rt.getLabEquipmentRequired();
-		}
-		return base; // fallback scenario, shouldn't happen
-	}
-
+	
 	public Queue<ColonyTask> load(String filePath, ResourceManager rm) throws IOException {
 		Queue<ColonyTask> restoredQueue = new LinkedList<>();
 		Map<Resource, Integer> loadedInventory = new HashMap<>();
@@ -91,6 +78,20 @@ public class SaveLoadManager {
 		// restore inventory to the resource manager
 		rm.setInventory(loadedInventory);
 		return restoredQueue;
+	}
+	
+
+	private String serializeTask(ColonyTask task) {
+		String base = "TASK:" + task.getTaskType() + ":" + task.getName() + ":r_parts:" + task.getRequiredParts()
+				+ ":time:" + task.getTimeToFix() + ":r_crew:" + task.getCrewMembersRequired();
+		if (task instanceof LifeSupportTask lst) {
+			return base + ":r_oxygen:" + lst.getOxygenRequired() + ":r_suits:" + lst.getSpaceSuits();
+		} else if (task instanceof EngineeringTask et) {
+			return base + ":r_powerunits:" + et.getPowerUnitsRequired();
+		} else if (task instanceof ResearchTask rt) {
+			return base + ":r_lab:" + rt.getLabEquipmentRequired();
+		}
+		return base; // fallback scenario, shouldn't happen
 	}
 
 	private ColonyTask deserializeTask(String line) {
