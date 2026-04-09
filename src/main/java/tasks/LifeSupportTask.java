@@ -5,8 +5,8 @@ public class LifeSupportTask extends ColonyTask {
 	private int spaceSuits;
 
 	public LifeSupportTask(String name, int oxygenRequired, int spaceSuits, int requiredParts, int timeToFix,
-			int crewMembersRequired, int difficulties) {
-		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties); // we send the name,parts and time of the task
+			int crewMembersRequired, int difficulties, int suppliesRequired) {
+		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.oxygenRequired = oxygenRequired;
 		this.spaceSuits = spaceSuits;
 	}
@@ -14,7 +14,7 @@ public class LifeSupportTask extends ColonyTask {
 	public int getOxygenRequired() {
 		return oxygenRequired;
 	}
-	
+
 	public int getSpaceSuits() {
 		return spaceSuits;
 	}
