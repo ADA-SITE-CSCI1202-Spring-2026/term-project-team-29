@@ -5,8 +5,8 @@ public class LifeSupportTask extends ColonyTask {
 	private int spaceSuits;
 
 	public LifeSupportTask(String name, int oxygenRequired, int spaceSuits, int requiredParts, int timeToFix,
-			int crewMembersRequired, int difficulties, int supplies) {
-		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, supplies);
+			int crewMembersRequired, int difficulties, int suppliesRequired) {
+		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.oxygenRequired = oxygenRequired;
 		this.spaceSuits = spaceSuits;
 	}

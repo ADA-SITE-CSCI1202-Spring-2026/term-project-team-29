@@ -17,7 +17,7 @@ public class SaveLoadManager {
 	public void save(String filePath, ResourceManager rm, Queue<ColonyTask> taskQueue) throws IOException {
 		// using Buffered Writer to make writing faster
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-			bw.write("CREDITS: " + rm.getCredits());
+			bw.write("CREDITS:" + rm.getCredits());
 			bw.newLine();
 
 			HashMap<Resource, Integer> inventory = rm.getInventory();
@@ -83,7 +83,7 @@ public class SaveLoadManager {
 	private String serializeTask(ColonyTask task) {
 		String base = "TASK:" + task.getTaskType() + ":" + task.getName() + ":r_parts:" + task.getRequiredParts()
 				+ ":time:" + task.getTimeToFix() + ":r_crew:" + task.getCrewMembersRequired() + ":difficulty:"
-				+ task.getDifficulties() + ":supplies:" + task.getSupplies();
+				+ task.getDifficulties() + ":supplies:" + task.getSuppliesRequired();
 
 		if (task instanceof LifeSupportTask lst) {
 			return base + ":r_oxygen:" + lst.getOxygenRequired() + ":r_suits:" + lst.getSpaceSuits();
@@ -118,7 +118,7 @@ public class SaveLoadManager {
 		int timeToFix = Integer.parseInt(parts[6].trim());
 		int crewMembersRequired = Integer.parseInt(parts[8].trim());
 		int difficulties = Integer.parseInt(parts[10].trim());
-		int supplies = Integer.parseInt(parts[12].trim());
+		int suppliesRequired = Integer.parseInt(parts[12].trim());
 
 		switch (type) {
 
@@ -127,19 +127,19 @@ public class SaveLoadManager {
 			int oxygen = Integer.parseInt(parts[14].trim());
 			int suits = Integer.parseInt(parts[16].trim());
 			return new LifeSupportTask(name, oxygen, suits, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,supplies);
+					difficulties,suppliesRequired);
 
 		case "ENGINEERING_TASK":
 			// p[13]="r_powerunits", p[14]=value
 			int powerUnitsRequired = Integer.parseInt(parts[14].trim());
 			return new EngineeringTask(name, powerUnitsRequired, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,supplies);
+					difficulties,suppliesRequired);
 
 		case "RESEARCH_TASK":
 			// p[13]="r_lab", p[14]=value
 			int labEquipmentRequired = Integer.parseInt(parts[14].trim());
 			return new ResearchTask(name, labEquipmentRequired, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,supplies);
+					difficulties,suppliesRequired);
 
 		default:
 			System.err.println("WARNING: unknown task type -> " + type);

@@ -18,7 +18,7 @@ public class TaskLibrary {
 
 		// Engineering Task
 		// name, powerUnitsRequired, requiredParts, timeToFix, crewMembersRequired,
-		// difficulties, supplies
+		// difficulties, suppliesRequired
 		tasks.add(new EngineeringTask("Fix Loose Solar Panel Cable", 5, 2, 10, 1, 0, 0));
 		tasks.add(new EngineeringTask("Calibrate Power Generator", 4, 1, 20, 1, 0, 0));
 		tasks.add(new EngineeringTask("Replace Broken Circuit Fuse", 3, 1, 10, 1, 0, 0)); // easy
@@ -33,7 +33,7 @@ public class TaskLibrary {
 
 		// LifeSupport Task
 		// name, oxygenRequired, spaceSuits, requiredParts, timeToFix,
-		// crewMembersRequired, difficulties, supplies
+		// crewMembersRequired, difficulties, suppliesRequired
 		tasks.add(new LifeSupportTask("Fix Minor Oxygen Leak", 5, 1, 2, 10, 1, 0, 0));
 		tasks.add(new LifeSupportTask("Clean Air Filters", 3, 0, 1, 2, 20, 0, 0));
 		tasks.add(new LifeSupportTask("Refill Water Condenser", 4, 0, 1, 10, 1, 0, 0)); // easy
@@ -48,7 +48,7 @@ public class TaskLibrary {
 
 		// Research Task
 		// name, labEquipmentRequired, requiredParts, timeToFix, crewMembersRequired,
-		// difficulties, supplies
+		// difficulties, suppliesRequired
 		tasks.add(new ResearchTask("Analyze Soil Sample", 3, 1, 10, 1, 0, 0));
 		tasks.add(new ResearchTask("Run Basic Water Test", 2, 1, 10, 1, 0, 0));
 		tasks.add(new ResearchTask("Calibrate Lab Sensors", 2, 1, 20, 1, 0, 0)); // easy
