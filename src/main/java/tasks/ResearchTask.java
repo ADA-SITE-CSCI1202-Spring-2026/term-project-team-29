@@ -4,8 +4,8 @@ public class ResearchTask extends ColonyTask {
 	private int labEquipmentRequired;
 
 	public ResearchTask(String name, int labEquipmentRequired, int requiredParts, int timeToFix,
-			int crewMembersRequired) {
-		super(name, requiredParts, timeToFix, crewMembersRequired);
+			int crewMembersRequired, int difficulties) {
+		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties);
 		this.labEquipmentRequired = labEquipmentRequired;
 	}
 
