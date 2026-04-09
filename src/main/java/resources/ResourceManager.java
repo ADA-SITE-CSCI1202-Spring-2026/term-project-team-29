@@ -15,6 +15,7 @@ public class ResourceManager {
 		inventory.put(Resource.SPACE_SUITS, 10);
 		inventory.put(Resource.SPARE_PARTS, 20);
 		inventory.put(Resource.CREW_MEMBERS, 20);
+		inventory.put(Resource.SUPPLIES, 100);
 		inventory.put(Resource.LAB_EQUIPMENTS, 5);
 		inventory.put(Resource.POWER_UNITS, 10);
 		credits = 1000;

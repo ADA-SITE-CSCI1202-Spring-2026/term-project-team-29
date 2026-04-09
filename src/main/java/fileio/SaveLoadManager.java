@@ -38,7 +38,7 @@ public class SaveLoadManager {
 			bw.newLine();
 		}
 	}
-	
+
 	public Queue<ColonyTask> load(String filePath, ResourceManager rm) throws IOException {
 		Queue<ColonyTask> restoredQueue = new LinkedList<>();
 		Map<Resource, Integer> loadedInventory = new HashMap<>();
@@ -79,11 +79,12 @@ public class SaveLoadManager {
 		rm.setInventory(loadedInventory);
 		return restoredQueue;
 	}
-	
 
 	private String serializeTask(ColonyTask task) {
 		String base = "TASK:" + task.getTaskType() + ":" + task.getName() + ":r_parts:" + task.getRequiredParts()
-				+ ":time:" + task.getTimeToFix() + ":r_crew:" + task.getCrewMembersRequired();
+				+ ":time:" + task.getTimeToFix() + ":r_crew:" + task.getCrewMembersRequired() + ":difficulty:"
+				+ task.getDifficulties() + ":supplies:" + task.getSupplies();
+
 		if (task instanceof LifeSupportTask lst) {
 			return base + ":r_oxygen:" + lst.getOxygenRequired() + ":r_suits:" + lst.getSpaceSuits();
 		} else if (task instanceof EngineeringTask et) {
@@ -97,8 +98,7 @@ public class SaveLoadManager {
 	private ColonyTask deserializeTask(String line) {
 
 		// example line:
-		// TASK:LIFE_SUPPORT:Oxygen
-		// Leak:r_parts:2:time:30:r_crew:3:r_oxygen:10:r_suits:2
+		// TASK:LIFE_SUPPORT:Oxygen_Leak:r_parts:2:time:30:r_crew:3:difficulty:0:supplies:2:r_oxygen:10:r_suits:2
 		// we split by ":" and read each field by position
 		String[] parts = line.split(":");
 
@@ -108,31 +108,38 @@ public class SaveLoadManager {
 		// p[3] = "r_parts", p[4] = value
 		// p[5] = "time", p[6] = value
 		// p[7] = "r_crew", p[8] = value
-		// p[9] = unique key, p[10] = unique value ...
+		// p[9] = "difficulty", p[10] = value
+		// p[11] = "supplies", p[12] = value
+		// p[13] = unique key, p[14] = unique value ...
 
 		String type = parts[1].trim();
 		String name = parts[2].trim();
 		int requiredParts = Integer.parseInt(parts[4].trim());
 		int timeToFix = Integer.parseInt(parts[6].trim());
 		int crewMembersRequired = Integer.parseInt(parts[8].trim());
+		int difficulties = Integer.parseInt(parts[10].trim());
+		int supplies = Integer.parseInt(parts[12].trim());
 
 		switch (type) {
 
 		case "LIFE_SUPPORT":
-			// p[9]="r_oxygen", p[10]=value, p[11]="r_suits", p[12]=value
-			int oxygen = Integer.parseInt(parts[10].trim());
-			int suits = Integer.parseInt(parts[12].trim());
-			return new LifeSupportTask(name, oxygen, suits, requiredParts, timeToFix, crewMembersRequired);
+			// p[13]="r_oxygen", p[14]=value, p[15]="r_suits", p[16]=value
+			int oxygen = Integer.parseInt(parts[14].trim());
+			int suits = Integer.parseInt(parts[16].trim());
+			return new LifeSupportTask(name, oxygen, suits, requiredParts, timeToFix, crewMembersRequired,
+					difficulties,supplies);
 
 		case "ENGINEERING_TASK":
-			// p[9]="r_powerunits", p[10]=value
-			int powerUnitsRequired = Integer.parseInt(parts[10].trim());
-			return new EngineeringTask(name, powerUnitsRequired, requiredParts, timeToFix, crewMembersRequired);
+			// p[13]="r_powerunits", p[14]=value
+			int powerUnitsRequired = Integer.parseInt(parts[14].trim());
+			return new EngineeringTask(name, powerUnitsRequired, requiredParts, timeToFix, crewMembersRequired,
+					difficulties,supplies);
 
 		case "RESEARCH_TASK":
-			// p[9]="r_lab", p[10]=value
-			int labEquipmentRequired = Integer.parseInt(parts[10].trim());
-			return new ResearchTask(name, labEquipmentRequired, requiredParts, timeToFix, crewMembersRequired);
+			// p[13]="r_lab", p[14]=value
+			int labEquipmentRequired = Integer.parseInt(parts[14].trim());
+			return new ResearchTask(name, labEquipmentRequired, requiredParts, timeToFix, crewMembersRequired,
+					difficulties,supplies);
 
 		default:
 			System.err.println("WARNING: unknown task type -> " + type);
