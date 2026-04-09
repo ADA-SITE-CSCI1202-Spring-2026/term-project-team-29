@@ -7,5 +7,7 @@ public enum Resource {
 	CREW_MEMBERS, // Consumed by all tasks ( base class )
 	LAB_EQUIPMENTS, // Consumed by ResearchTask
 	POWER_UNITS, // Consumed by EngineeringTask
+
+	// Make a new Resource called Supplies(meal, water) consumed by all tasks
 	
 }
