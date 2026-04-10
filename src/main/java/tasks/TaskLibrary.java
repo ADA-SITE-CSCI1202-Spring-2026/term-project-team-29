@@ -13,6 +13,8 @@ public class TaskLibrary {
 		 * check from ColonyTask.java It is the current last parameter for every
 		 * constructor: ColonyTask,LifeSupportTask,EngineeringTask,ResearchTask
 		 * oh yeah i also added 0 supplies to all scenarios cuz i was lazy lol!!!!
+		 * Can you also add a bit of lore under every scenario so we can add them to-
+		 * the console we are going to have on the game.
 		 * -Qardem
 		 */
 
