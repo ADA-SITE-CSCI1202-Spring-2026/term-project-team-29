@@ -12,12 +12,12 @@ public class ResourceManager {
 		// setup the starting values
 		// ALL TEMP VALUES , SUBJECT TO CHANGE
 		inventory.put(Resource.OXYGEN, 100);
-		inventory.put(Resource.SPACE_SUITS, 10);
-		inventory.put(Resource.SPARE_PARTS, 20);
-		inventory.put(Resource.CREW_MEMBERS, 20);
-		inventory.put(Resource.SUPPLIES, 100);
-		inventory.put(Resource.LAB_EQUIPMENTS, 5);
-		inventory.put(Resource.POWER_UNITS, 10);
+		inventory.put(Resource.SPACE_SUITS, 5);
+		inventory.put(Resource.SPARE_PARTS, 25);
+		inventory.put(Resource.CREW_MEMBERS, 10);
+		inventory.put(Resource.SUPPLIES, 30);
+		inventory.put(Resource.LAB_EQUIPMENTS, 10);
+		inventory.put(Resource.POWER_UNITS, 20);
 		credits = 1000;
 		// ALL TEMP VALUES, SUBJECT TO CHANGE
 	}
