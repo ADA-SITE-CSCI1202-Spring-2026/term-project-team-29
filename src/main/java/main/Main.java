@@ -11,11 +11,16 @@ package main;
 //import tasks.EngineeringTask;
 //import tasks.LifeSupportTask;
 //import tasks.ResearchTask;
-import ui.MainFrame;
+import ui.AresBaseDashboard;
+import javax.swing.SwingUtilities;
 
 public class Main {
-	public static void main(String[] args) {
-		new MainFrame();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new AresBaseDashboard().setVisible(true);
+        });
+    }
+
 
 		
 		
@@ -43,5 +48,4 @@ public class Main {
 //		for (ColonyTask t : loadedQueue) {
 //			System.out.println("Task: " + t.getName() + " | Type: " + t.getTaskType());
 //		}
-	}
 }
