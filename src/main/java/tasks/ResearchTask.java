@@ -1,5 +1,8 @@
 package tasks;
 
+import resources.Resource;
+import resources.ResourceManager;
+
 public class ResearchTask extends ColonyTask {
 	private int labEquipmentRequired;
 
@@ -7,6 +10,18 @@ public class ResearchTask extends ColonyTask {
 			int crewMembersRequired, int difficulties, int suppliesRequired) {
 		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.labEquipmentRequired = labEquipmentRequired;
+	}
+
+	@Override
+	public boolean hasEnoughResources(ResourceManager rm) {
+		return super.hasEnoughResources(rm)
+			&& rm.hasEnough(Resource.LAB_EQUIPMENTS, labEquipmentRequired);
+	}
+
+	@Override
+	public void deductResources(ResourceManager rm) {
+		super.deductResources(rm);
+		rm.deduct(Resource.LAB_EQUIPMENTS, labEquipmentRequired);
 	}
 
 	public int getLabEquipmentRequired() {
