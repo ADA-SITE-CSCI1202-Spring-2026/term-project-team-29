@@ -6,23 +6,20 @@ import resources.ResourceManager;
 public class ResearchTask extends ColonyTask {
 	private int labEquipmentRequired;
 
-	public ResearchTask(String name, int labEquipmentRequired, int requiredParts, int timeToFix,
-			int crewMembersRequired, int difficulties, int suppliesRequired) {
-		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
+	public ResearchTask(String name, int labEquipmentRequired, int requiredParts, int crewMembersRequired,
+			int difficulties, int suppliesRequired) {
+		super(name, requiredParts, crewMembersRequired, difficulties, suppliesRequired);
 		this.labEquipmentRequired = labEquipmentRequired;
 	}
-	
+
 	@Override
 	public String getResourceSummary() {
-	    return "Lab:" + labEquipmentRequired + 
-	           " Parts:" + requiredParts + 
-	           " Crew:" + crewMembersRequired;
+		return "Lab:" + labEquipmentRequired + " Parts:" + requiredParts + " Crew:" + crewMembersRequired;
 	}
 
 	@Override
 	public boolean hasEnoughResources(ResourceManager rm) {
-		return super.hasEnoughResources(rm)
-			&& rm.hasEnough(Resource.LAB_EQUIPMENTS, labEquipmentRequired);
+		return super.hasEnoughResources(rm) && rm.hasEnough(Resource.LAB_EQUIPMENTS, labEquipmentRequired);
 	}
 
 	@Override
