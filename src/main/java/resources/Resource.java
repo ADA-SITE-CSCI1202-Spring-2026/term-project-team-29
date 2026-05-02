@@ -8,5 +8,5 @@ public enum Resource {
 	SUPPLIES, // Consumed by  all tasks ( base class )
 	LAB_EQUIPMENTS, // Consumed by ResearchTask
 	POWER_UNITS, // Consumed by EngineeringTask
-// Make a new resource hp(double) 	
+
 }

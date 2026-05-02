@@ -10,6 +10,9 @@ public abstract class ColonyTask {
 	protected int crewMembersRequired;
 	protected int difficulties; // easy = 0, medium = 1, hard = 2
 	protected int suppliesRequired; // food, water stuff
+	
+	
+	public abstract String getResourceSummary();
  
 	public ColonyTask(String name, int requiredParts, int timeToFix, int crewMembersRequired, int difficulties, int suppliesRequired) {
 		this.name = name; // name of the task

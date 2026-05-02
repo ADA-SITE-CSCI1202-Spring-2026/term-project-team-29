@@ -11,6 +11,13 @@ public class ResearchTask extends ColonyTask {
 		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.labEquipmentRequired = labEquipmentRequired;
 	}
+	
+	@Override
+	public String getResourceSummary() {
+	    return "Lab:" + labEquipmentRequired + 
+	           " Parts:" + requiredParts + 
+	           " Crew:" + crewMembersRequired;
+	}
 
 	@Override
 	public boolean hasEnoughResources(ResourceManager rm) {

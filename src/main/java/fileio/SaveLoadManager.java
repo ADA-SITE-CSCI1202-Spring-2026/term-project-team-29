@@ -11,13 +11,24 @@ import java.util.*;
 
 public class SaveLoadManager {
 
+	private int loadedGameMinutes = 0;
+
+	public int getLoadedGameMinutes() {
+		return loadedGameMinutes;
+	}
+
 	// filePath where it will be saved the "save_state.txt" file
 	// rm to read credits and resources
 	// taskQueue is the list of pending tasks
-	public void save(String filePath, ResourceManager rm, Queue<ColonyTask> taskQueue) throws IOException {
+	public void save(String filePath, ResourceManager rm, Queue<ColonyTask> taskQueue, int gameMinutes)
+			throws IOException {
 		// using Buffered Writer to make writing faster
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
 			bw.write("CREDITS:" + rm.getCredits());
+			bw.newLine();
+			bw.write("GAME_MINUTES:" + gameMinutes);
+			bw.newLine();
+			bw.write("HP:" + rm.getHp());
 			bw.newLine();
 
 			HashMap<Resource, Integer> inventory = rm.getInventory();
@@ -56,6 +67,10 @@ public class SaveLoadManager {
 					int credits = Integer.parseInt(line.split(":")[1].trim());
 					rm.setCredits(credits);
 
+				} else if (line.startsWith("GAME_MINUTES:")) {
+					loadedGameMinutes = Integer.parseInt(line.split(":")[1].trim());
+				} else if (line.startsWith("HP:")) {
+					rm.setHp(Integer.parseInt(line.split(":")[1].trim()));
 				} else if (line.startsWith("RESOURCE:")) {
 					// parse "RESOURCE:OXYGEN" > OXYGEN, 100
 					String[] parts = line.split(":");
@@ -75,9 +90,11 @@ public class SaveLoadManager {
 
 			}
 		}
-		// restore inventory to the resource manager
+		
+
 		rm.setInventory(loadedInventory);
 		return restoredQueue;
+
 	}
 
 	private String serializeTask(ColonyTask task) {
@@ -126,20 +143,20 @@ public class SaveLoadManager {
 			// p[13]="r_oxygen", p[14]=value, p[15]="r_suits", p[16]=value
 			int oxygen = Integer.parseInt(parts[14].trim());
 			int suits = Integer.parseInt(parts[16].trim());
-			return new LifeSupportTask(name, oxygen, suits, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,suppliesRequired);
+			return new LifeSupportTask(name, oxygen, suits, requiredParts, timeToFix, crewMembersRequired, difficulties,
+					suppliesRequired);
 
 		case "ENGINEERING_TASK":
 			// p[13]="r_powerunits", p[14]=value
 			int powerUnitsRequired = Integer.parseInt(parts[14].trim());
 			return new EngineeringTask(name, powerUnitsRequired, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,suppliesRequired);
+					difficulties, suppliesRequired);
 
 		case "RESEARCH_TASK":
 			// p[13]="r_lab", p[14]=value
 			int labEquipmentRequired = Integer.parseInt(parts[14].trim());
 			return new ResearchTask(name, labEquipmentRequired, requiredParts, timeToFix, crewMembersRequired,
-					difficulties,suppliesRequired);
+					difficulties, suppliesRequired);
 
 		default:
 			System.err.println("WARNING: unknown task type -> " + type);

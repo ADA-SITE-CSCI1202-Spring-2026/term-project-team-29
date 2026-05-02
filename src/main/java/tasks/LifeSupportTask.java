@@ -6,12 +6,22 @@ import resources.ResourceManager;
 public class LifeSupportTask extends ColonyTask {
 	private int oxygenRequired;
 	private int spaceSuits;
+	
+	
  
 	public LifeSupportTask(String name, int oxygenRequired, int spaceSuits, int requiredParts, int timeToFix,
 			int crewMembersRequired, int difficulties, int suppliesRequired) {
 		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.oxygenRequired = oxygenRequired;
 		this.spaceSuits = spaceSuits;
+	}
+	
+	@Override
+	public String getResourceSummary() {
+	    return "O2:" + oxygenRequired + 
+	           " Suits:" + spaceSuits + 
+	           " Parts:" + requiredParts + 
+	           " Crew:" + crewMembersRequired;
 	}
  
 	@Override

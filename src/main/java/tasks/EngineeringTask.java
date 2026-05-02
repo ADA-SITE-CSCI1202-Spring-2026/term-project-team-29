@@ -11,7 +11,14 @@ public class EngineeringTask extends ColonyTask {
 		super(name, requiredParts, timeToFix, crewMembersRequired, difficulties, suppliesRequired);
 		this.powerUnitsRequired = powerUnitsRequired;
 	}
- 
+	
+	@Override
+	public String getResourceSummary() {
+	    return "Power:" + powerUnitsRequired + 
+	           " Parts:" + requiredParts + 
+	           " Crew:" + crewMembersRequired;
+	}
+	
 	@Override
 	public boolean hasEnoughResources(ResourceManager rm) {
 		return super.hasEnoughResources(rm)
